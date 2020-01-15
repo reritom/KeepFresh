@@ -13,9 +13,10 @@ PathString = TypeVar('PathString', bound=str)
 ModifiedTimeString = TypeVar('ModifiedTimeString', bound=str)
 
 class Observer:
-    def __init__(self, base_dir: str, excluded_dirs: List[str]):
+    def __init__(self, base_dir: str, excluded_dirs: List[str], file_extensions: List[str]):
         self.base_dir = base_dir
         self.excluded_dirs = excluded_dirs
+        self.file_extensions = file_extensions
         self.path_map = self.create_path_map()
         logger.info(f"Watching {len(self.path_map)} files")
 
@@ -27,8 +28,9 @@ class Observer:
         for dir_path, dirs, files in os.walk(self.base_dir, topdown=True):
             dirs[:] = [dir for dir in dirs if dir not in self.excluded_dirs]
             for file in files:
-                file_path = os.path.join(dir_path, file)
-                path_map[file_path] = os.stat(file_path).st_mtime
+                if file.split('.')[-1] in self.file_extensions:
+                    file_path = os.path.join(dir_path, file)
+                    path_map[file_path] = os.stat(file_path).st_mtime
         return path_map
 
     def determine_events(self, existing_path_map: dict, new_path_map: dict) -> List[Event]:

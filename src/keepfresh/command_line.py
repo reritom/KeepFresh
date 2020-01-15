@@ -15,10 +15,13 @@ def main():
     parser.add_argument('-i', type=int, help='Interval')
     parser.add_argument('-d', type=str, help='Directory')
     parser.add_argument('-e', type=str, nargs='+', help='Excluded directories')
+    parser.add_argument('-x', type=str, nargs='+', help='File extensions to watch')
     parser.add_argument('-a', action='store_true', help="Auto restart")
     parser.add_argument('-c', type=str, nargs='+', help='Command')
     parser.add_argument('-l', action='store_true', help='Run the logging monitor')
     args = parser.parse_args()
+
+    print(args.e)
 
     if not args.d:
         logger.error("-d option to specify directory is required")
@@ -30,7 +33,8 @@ def main():
 
     observer = Observer(
         base_dir=args.d,
-        excluded_dirs=args.e if args.e else []
+        excluded_dirs=args.e if args.e else [],
+        file_extensions=args.x if args.x else []
     )
 
     if args.l:
