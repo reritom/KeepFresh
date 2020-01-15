@@ -13,19 +13,23 @@ pip install keepfresh
 ```
 Which will install `keepfresh` as a command.
 
+## Usage
 ```
-usage: keepfresh [-h] [-i I] [-d D] [-e E [E ...]] [-a] [-c C [C ...]] [-l]
+usage: keepfresh [-h] [-i I] [-d D] [-e E [E ...]] [-x X [X ...]] [-a]
+                 [-c C [C ...]] [-l]
 
 optional arguments:
   -h, --help    show this help message and exit
   -i I          Interval
   -d D          Directory
   -e E [E ...]  Excluded directories
+  -x X [X ...]  File extensions to watch
   -a            Auto restart
   -c C [C ...]  Command
   -l            Run the logging monitor
 ```
 
+## Examples
 Usage for logging event changes:
 (This example logs any changes in the current directory ('.') at a 1 second polling interval)
 ```
@@ -36,4 +40,10 @@ Usage for auto-restarting a command:
 (This example polls every second in the current directory. -a means to auto-restart, -c is the command)
 ```
 $ keepfresh -i 1 -d . -a -c echo "Hello World"
+```
+
+If you only want to consider certain file types, use the `x` parameter
+(This example polls every second in the current directory with logging, but only looks at .py and .txt files
+```
+$ keepfresh -i 1 -d . -a -x py md -c echo "Hello World"
 ```
