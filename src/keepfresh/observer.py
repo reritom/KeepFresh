@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from watchme.event import Event
+from keepfresh.event import Event
 from typing import List, TypeVar, Dict
 import os
 import time

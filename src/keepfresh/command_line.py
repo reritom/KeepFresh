@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from watchme.observer import Observer
-from watchme.restart_handler import RestartHandler
+from keepfresh.observer import Observer
+from keepfresh.restart_handler import RestartHandler
 from argparse import ArgumentParser
 import sys
 import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(message)s')
+logger = logging.getLogger(__name__)
 
 def main():
     parser = ArgumentParser()
@@ -18,6 +19,14 @@ def main():
     parser.add_argument('-c', type=str, nargs='+', help='Command')
     parser.add_argument('-l', action='store_true', help='Run the logging monitor')
     args = parser.parse_args()
+
+    if not args.d:
+        logger.error("-d option to specify directory is required")
+        sys.exit(1)
+
+    if not args.i:
+        logger.error("-i option to specify polling interval in seconds is required")
+        sys.exit(1)
 
     observer = Observer(
         base_dir=args.d,
@@ -40,6 +49,8 @@ def main():
             handler.run()
         except KeyboardInterrupt:
             sys.exit(0)
+
+    logger.warning("Either -l or (-a and -c with a command) needs to be specified")
 
 if __name__=='__main__':
     main()

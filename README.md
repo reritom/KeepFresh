@@ -5,11 +5,13 @@ Watchdogs' utility tool watchmedo should be used as opposed to this. This was cr
 
 This was developed for the usecase of hot-reloading in a Docker container where the host has a volume mount in the container.
 
+Currently the provided directory is searched recursively for all file types, with the ability to ignore certain directories.
+
 ## Installation
 ```
 pip install keepfresh
 ```
-Which will install watchme as a command.
+Which will install `keepfresh` as a command.
 
 ```
 usage: keepfresh [-h] [-i I] [-d D] [-e E [E ...]] [-a] [-c C [C ...]] [-l]
