@@ -13,7 +13,7 @@ setup(
     description="Filesystem event polling",
     author="Tomas Sheers",
     author_email="t.sheers@outlook.com",
-    download_url="https://github.com/reritom/KeepFresh/archive/v0.0.1.tar.gz",
+    download_url="https://github.com/reritom/KeepFresh/archive/v0.0.2.tar.gz",
     url="https://github.com/reritom/KeepFresh",
     keywords=["FILESYSTEM", "EVENT", "POLLING"],
     long_description=get_readme(),
