@@ -9,7 +9,7 @@ def get_readme():
 
 setup(
     name="keepfresh",
-    version="0.0.1",
+    version="0.0.2",
     description="Filesystem event polling",
     author="Tomas Sheers",
     author_email="t.sheers@outlook.com",
