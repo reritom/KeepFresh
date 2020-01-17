@@ -26,11 +26,17 @@ class Observer:
         """
         path_map = {}
         for dir_path, dirs, files in os.walk(self.base_dir, topdown=True):
+            # Filter the directories that we will iterate next
             dirs[:] = [dir for dir in dirs if dir not in self.excluded_dirs]
+
             for file in files:
-                if file.split('.')[-1] in self.file_extensions:
-                    file_path = os.path.join(dir_path, file)
-                    path_map[file_path] = os.stat(file_path).st_mtime
+                if self.file_extensions and file.split('.')[-1] not in self.file_extensions:
+                    # Ignore this file if the extension isnt in the provided ones
+                    continue
+                    
+                file_path = os.path.join(dir_path, file)
+                path_map[file_path] = os.stat(file_path).st_mtime
+
         return path_map
 
     def determine_events(self, existing_path_map: dict, new_path_map: dict) -> List[Event]:

@@ -7,9 +7,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 class RestartHandler:
-    def __init__(self, observer, interval, command):
+    def __init__(self, observer, command):
         self.observer = observer
-        self.interval = interval
         self.command = command
 
     def run(self):
