@@ -33,9 +33,14 @@ class Observer:
                 if self.file_extensions and file.split('.')[-1] not in self.file_extensions:
                     # Ignore this file if the extension isnt in the provided ones
                     continue
-                    
+
                 file_path = os.path.join(dir_path, file)
-                path_map[file_path] = os.stat(file_path).st_mtime
+
+                try:
+                    path_map[file_path] = os.stat(file_path).st_mtime
+                except FileNotFoundError:
+                    # Sometimes the file might be gone by the time we get here
+                    pass
 
         return path_map
 
